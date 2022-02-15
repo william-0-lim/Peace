@@ -6,7 +6,7 @@ class Player():
         self.index = 0
         self.counter = 0
         for num in range(1, 12):
-            img_right = pygame.image.load(f'img/p1_walk{num}.png')
+            img_right = pygame.image.load(f'img/p1/p1_walk{num}.png')
             img_right = pygame.transform.scale(img_right, (40, 80))
             self.images_right.append(img_right)
         self.image = self.images_right[self.index]

@@ -4,10 +4,12 @@ import pygame
 tile_size = 50
 
 #load images
-space_img = pygame.image.load('img/space.png')
+space_img = pygame.image.load('img/background/space.png')
 
 #load images
-bg_img = pygame.image.load('img/bg.png')
+bg_img = pygame.image.load('img/background/bg.png')
+sun_img = pygame.image.load('img/background/sun.png')
+sky_img = pygame.image.load('img/background/sky.png')
 
 class World():
     def __init__(self, data):

@@ -13,10 +13,12 @@ class Player():
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
         self.vel_y = 0
         self.jumped = False
 
-    def update(self, screen_height, screen):
+    def update(self, screen_height, screen, world):
         dx = 0
         dy = 0
         walk_cooldown = 20
@@ -53,6 +55,22 @@ class Player():
             self.vel_y = 10
         dy += self.vel_y
 
+        #check for collision
+        for tile in world.tile_list:
+            #check for collision in x direction
+            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
+                dx = 0
+            #check for collision in y direction
+            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+                #check if below the ground i.e. jumping
+                if self.vel_y < 0:
+                    dy = tile[1].bottom - self.rect.top
+                    self.vel_y = 0
+                #check if above the ground i.e. falling
+                elif self.vel_y >= 0:
+                    dy = tile[1].top - self.rect.bottom
+                    self.vel_y = 0
+
         #update player coordinates
         self.rect.x += dx
         self.rect.y += dy
@@ -63,3 +81,4 @@ class Player():
 
         #draw player onto screen
         screen.blit(self.image, self.rect)
+        pygame.draw.rect(screen, (255,255,255), self.rect, 2)
